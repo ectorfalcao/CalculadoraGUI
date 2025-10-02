@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Científica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .calculator {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .calculator-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .calculator-header h1 {
+            color: #333;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        .calculator-header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .display {
+            background: #1a1a1a;
+            color: #00ff88;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            font-family: 'Courier New', monospace;
+            box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .display-main {
+            font-size: 2.5em;
+            text-align: right;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            word-break: break-all;
+        }
+
+        .display-info {
+            font-size: 1em;
+            text-align: right;
+            color: #888;
+            margin-top: 10px;
+            min-height: 20px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .angle-mode {
+            display: flex;
+            background: #f0f0f0;
+            border-radius: 25px;
+            overflow: hidden;
+        }
+
+        .angle-mode button {
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .angle-mode button.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .clear-all {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .clear-all:hover {
+            background: #ff3742;
+            transform: translateY(-2px);
+        }
+
+        .input-section {
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1.1em;
+            min-width: 120px;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .operations {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .operation-category {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .operation-category h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .operation-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .operation-buttons.single {
+            grid-template-columns: 1fr;
+        }
+
+        .operation-buttons.triple {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .btn {
+            padding: 10px 8px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+            transition: all 0.2s;
+            background: #667eea;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn.special {
+            background: #ff6b6b;
+        }
+
+        .btn.special:hover {
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .result-history {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .result-history h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .history-item {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border-left: 4px solid #667eea;
+            font-family: 'Courier New', monospace;
+        }
+
+        .error {
+            color: #ff4757;
+            background: #ffe6e6;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .calculator {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .calculator-header h1 {
+                font-size: 1.8em;
+            }
+            
+            .display-main {
+                font-size: 2em;
+            }
+            
+            .operations {
+                grid-template-columns: 1fr;
+            }
+            
+            .operation-buttons {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .input-group {
+                flex-direction: column;
+            }
+            
+            .input-group input {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="calculator-header">
+            <h1>🧮 Calculadora Científica</h1>
+            <p>25 operações matemáticas avançadas</p>
+        </div>
+
+        <div class="display">
+            <div class="display-main" id="display">0</div>
+            <div class="display-info" id="displayInfo">Pronto para calcular</div>
+        </div>
+
+        <div class="controls">
+            <div class="angle-mode">
+                <button class="active" onclick="setAngleMode('rad')">RAD</button>
+                <button onclick="setAngleMode('deg')">DEG</button>
+            </div>
+            <button class="clear-all" onclick="clearAll()">Limpar Tudo</button>
+        </div>
+
+        <div class="input-section">
+            <div class="input-group">
+                <input type="number" id="input1" placeholder="Número 1" step="any">
+                <input type="number" id="input2" placeholder="Número 2 (opcional)" step="any">
+            </div>
+        </div>
+
+        <div class="operations">
+            <!-- Operações Básicas -->
+            <div class="operation-category">
+                <h3>🔢 Básicas</h3>
+                <div class="operation-buttons">
+                    <button class="btn" onclick="calcular('adicao')">+</button>
+                    <button class="btn" onclick="calcular('subtracao')">-</button>
+                    <button class="btn" onclick="calcular('multiplicacao')">×</button>
+                    <button class="btn" onclick="calcular('divisao')">÷</button>
+                </div>
+            </div>
+
+            <!-- Potências e Raízes -->
+            <div class="operation-category">
+                <h3>🔋 Potências</h3>
+                <div class="operation-buttons">
+                    <button class="btn" onclick="calcular('potenciacao')">x^y</button>
+                    <button class="btn" onclick="calcular('radiciacao')">ⁿ√x</button>
+                    <button class="btn" onclick="calcular('raizQuadrada')">√x</button>
+                    <button class="btn" onclick="calcular('raizCubica')">∛x</button>
+                </div>
+            </div>
+
+            <!-- Trigonométricas -->
+            <div class="operation-category">
+                <h3>📐 Trigonométricas</h3>
+                <div class="operation-buttons triple">
+                    <button class="btn" onclick="calcular('seno')">sen</button>
+                    <button class="btn" onclick="calcular('cosseno')">cos</button>
+                    <button class="btn" onclick="calcular('tangente')">tan</button>
+                    <button class="btn" onclick="calcular('arcoSeno')">asen</button>
+                    <button class="btn" onclick="calcular('arcoCosseno')">acos</button>
+                    <button class="btn" onclick="calcular('arcoTangente')">atan</button>
+                </div>
+            </div>
+
+            <!-- Hiperbólicas -->
+            <div class="operation-category">
+                <h3>📈 Hiperbólicas</h3>
+                <div class="operation-buttons triple">
+                    <button class="btn special" onclick="calcular('senoHiperbolico')">senh</button>
+                    <button class="btn special" onclick="calcular('cossenoHiperbolico')">cosh</button>
+                    <button class="btn special" onclick="calcular('tangenteHiperbolica')">tanh</button>
+                </div>
+            </div>
+
+            <!-- Logarítmicas -->
+            <div class="operation-category">
+                <h3>📊 Logarítmicas</h3>
+                <div class="operation-buttons triple">
+                    <button class="btn" onclick="calcular('logaritmoNatural')">ln</button>
+                    <button class="btn" onclick="calcular('logaritmoBase10')">log</button>
+                    <button class="btn" onclick="calcular('logaritmoBase2')">log₂</button>
+                </div>
+            </div>
+
+            <!-- Especiais -->
+            <div class="operation-category">
+                <h3>⭐ Especiais</h3>
+                <div class="operation-buttons">
+                    <button class="btn special" onclick="calcular('fatorial')">n!</button>
+                    <button class="btn special" onclick="calcular('derivadaSimples')">f'(x)</button>
+                    <button class="btn" onclick="calcular('restoDivisao')">mod</button>
+                    <button class="btn" onclick="calcular('diferencaPositiva')">fdim</button>
+                </div>
+            </div>
+
+            <!-- Análise -->
+            <div class="operation-category">
+                <h3>🔍 Análise</h3>
+                <div class="operation-buttons">
+                    <button class="btn" onclick="calcular('obterMantissa')">mantissa</button>
+                    <button class="btn" onclick="calcular('obterExpoente')">expoente</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="result-history">
+            <h3>📜 Histórico</h3>
+            <div id="history"></div>
+        </div>
+
+        <div id="error" class="error" style="display: none;"></div>
+    </div>
+
+    <script src="calculator-functions.js"></script>
+    <script src="calculator-ui.js"></script>
+</body>
+</html>
