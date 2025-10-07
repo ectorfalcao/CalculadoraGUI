@@ -1,7 +1,7 @@
 // Interface JavaScript para Calculadora Científica
 
 //let é uma variável que pode mudar de valor
-//calc é uma instância que vamos usar para chamar os metódos
+//calc é o nome que atraibuímos para a a instância que vamos usar para chamar os metódos
 //new é usado para criar uma nova instância de uma classe
 //CalculadoraCientifica é a classe que criamos em calculadora.js
 //history RECEBE um array que vai guardar o histórico
@@ -388,4 +388,5 @@ window.addEventListener('load', function() {
     updateDisplayInfo('Digite números e escolha uma operação');
 
 });
+
 
