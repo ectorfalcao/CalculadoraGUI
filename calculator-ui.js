@@ -1,4 +1,11 @@
 // Interface JavaScript para Calculadora Científica
+
+//let é uma variável que pode mudar de valor
+//calc é uma instância que vamos usar para chamar os metódos
+//new é usado para criar uma nova instância de uma classe
+//CalculadoraCientifica é a classe que criamos em calculadora.js
+//history RECEBE um array que vai guardar o histórico
+//"= []" é "recebe um array vazio"
 let calc = new CalculadoraCientifica();
 let history = [];
 
@@ -22,6 +29,8 @@ const historyDiv = document.getElementById('history');
 const errorDiv = document.getElementById('error');
 
 // Funções de interface
+
+//função para mudar os angulos de rad para deg (radianos pra graus)
 function setAngleMode(mode) {
     calc.alterarModoAngulo(mode);
     
@@ -379,3 +388,4 @@ window.addEventListener('load', function() {
     updateDisplayInfo('Digite números e escolha uma operação');
 
 });
+
