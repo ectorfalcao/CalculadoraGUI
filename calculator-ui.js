@@ -76,6 +76,7 @@ function setAngleMode(mode) {
     updateDisplayInfo(`Modo: ${mode.toUpperCase()}`);
 }
 
+//limpando tudo, simplesmente as variáveis recebem seus valores iniciais para serem utilizadas novamente
 function clearAll() {
     input1.value = '';
     input2.value = '';
@@ -421,6 +422,7 @@ window.addEventListener('load', function() {
     updateDisplayInfo('Digite números e escolha uma operação');
 
 });
+
 
 
 
