@@ -30,16 +30,49 @@ const errorDiv = document.getElementById('error');
 
 // Funções de interface
 
-//função para mudar os angulos de rad para deg (radianos pra graus)
+//botãozinho para alterar o modo de ângulo
+//o parametro mode é uma variável para o modo que a função vai receber
+//usaremos essa função frente para definir se vai ser graus ou radianos
+//da seguinte forma: setAngleMode("graus ou radianos")
 function setAngleMode(mode) {
+    
+    //calc a gente viu lá em cima
+    //alterarModoAngulo é o método que criamos lá na calculadora.js
+    //aqui estamos chamando o método alterarModoAngulo e passando o mode para ele
+    //dai a calculadora vai saber que pediu para mudar
     calc.alterarModoAngulo(mode);
     
     // Atualizar botões visuais
+
+    //document a gente viu lá em cima
+    //querySelectorAll seleciona todos os elementos que correspondem a um seletor
+    //"angle mode button" é o seletor CSS que estamos usando
+    //forEach é um método que executa uma função para cada elemento do array
+    //btn é o parâmetro que representa cada botão
+    //classList é uma propriedade que retorna a lista de classes do elemento
+    //remove remove uma classe da lista
+    //então estamos removendo a classe "active" de todos os botões
     document.querySelectorAll('.angle-mode button').forEach(btn => {
         btn.classList.remove('active');
     });
+    //retorno visual do botão
+
+    //event é um objeto que representa o evento que ocorreu
+    //target é a propriedade que retorna o elemento que disparou o evento
+    //classList é uma propriedade que retorna a lista de classes do elemento
+    //add adiciona uma classe na lista
+    //então estamos adicionando a classe "active" ao botão que foi clicado
+    //daí o retorno visual do botão selecionado
     event.target.classList.add('active');
     
+    // Atualizar display info(telinha)
+
+    //updateDisplayInfo é o nome da função
+    //ela atualiza o display info com o que modo que acabou de ser alterado
+    //aqui estamos passando uma string formatada com o modo atual
+    //toUpperCase transforma o texto em maiúsculo
+    //${mode.toUpperCase()} é uma template string que insere o valor de mode em maiúsculo
+    //dai vai aparecer na telinha: Modo: RAD/DEG
     updateDisplayInfo(`Modo: ${mode.toUpperCase()}`);
 }
 
@@ -388,5 +421,6 @@ window.addEventListener('load', function() {
     updateDisplayInfo('Digite números e escolha uma operação');
 
 });
+
 
 
