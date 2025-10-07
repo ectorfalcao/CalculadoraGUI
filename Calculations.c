@@ -1,14 +1,24 @@
 #include "emscripten_compatibility.h"
+//ifdef é uma instrução do pré processador que permite a compilação condicional
+//o texto entre ifdef e endif será compilado (se a macro estiver definida)
+//_EMSCRIPPTEN_ é definido automaticamente pelo compilador Emscripten 
 #ifdef __EMSCRIPTEN__
     #include <emscripten/emscripten.h>
 #endif
 
-// Exportar funções para WebAssembly
+// Exportar funções para WebAssembly****
+//_cplusplus verifica se o código está sendo compilado como C++ ou C
+//extern "C" é usado para evitar a name mangling (modificação de nomes) em C++
+//isso garante que as funções possam ser chamadas corretamente do JavaScript
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 // 1 - Adição
+
+//EMSCRIPTEN_KEEPALIVE garante que a função não será eliminada durante a otimização
+// em outras palavras, elimina problemas com o JS
+//sem isso, a otimização do compilador poderia remover funções que não estão em C
 EMSCRIPTEN_KEEPALIVE
 double adicao(double a, double b) {
     return a + b;
