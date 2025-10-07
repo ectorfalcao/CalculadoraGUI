@@ -3,6 +3,17 @@ let calc = new CalculadoraCientifica();
 let history = [];
 
 // Elementos da interface
+
+// Elementos da interface
+//aqui definimos variáveis para os elementos que vamos usar em HTML
+//const pois são variáveis constantes + o nome que atribuímos a elas
+//document retorna uma referência do documento
+//getElementById retorna o ID do elemento
+//então estamos armazenando nas variáveis os elementos do HTML
+//display é a telinha da calculadora
+//display info o que está escrito na telinha (pede para calcular e diz que calculou ou não, etc.)
+//os inputs são os botões para input, history é o histórico
+//error é a div pra quando der erro
 const display = document.getElementById('display');
 const displayInfo = document.getElementById('displayInfo');
 const input1 = document.getElementById('input1');
@@ -366,4 +377,5 @@ input2.addEventListener('keypress', function(e) {
 window.addEventListener('load', function() {
     input1.focus();
     updateDisplayInfo('Digite números e escolha uma operação');
+
 });
