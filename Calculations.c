@@ -1,3 +1,9 @@
+//o emscripten é a chave pra entender tudo aqui
+//esse "emscripten_compatibility.h" é um arquivo de cabeçalho do Emscripten
+//o Emscripten é uma (cadeia de) ferramenta(s) para compilar c/c++ em Wasm(webassembly)
+//Wasm é como um complemento para o JS, é uma maneira de rodar programas de alta performance no navegador
+//o JS "conversa" com o Wasm, podendo chamar funções
+//No fim das contas, acaba sendo mais rápido que o JS
 #include "emscripten_compatibility.h"
 //ifdef é uma instrução do pré processador que permite a compilação condicional
 //o texto entre ifdef e endif será compilado (se a macro estiver definida)
