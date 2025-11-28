@@ -2,6 +2,16 @@
 
 Uma calculadora científica completa com **25 operações matemáticas**, implementada em C e executando no navegador através de WebAssembly, com interface responsiva moderna.
 
+## 💡 A Ousadia: Além do Terminal
+
+Este projeto nasceu de uma atividade acadêmica da disciplina de **Algoritmos e Pensamento Computacional**. O requisito original era desenvolver uma calculadora simples, baseada em texto, rodando no console.
+
+No entanto, decidi transformar o exercício em uma oportunidade de integrar o baixo nível (C) com o desenvolvimento web moderno. A filosofia deste projeto pode ser resumida na seguinte frase:
+
+> **"Isto aqui calcula em C, porque é o que a professora me pediu, mas implementa uma interface pois é o desafio que eu escolhi."**
+
+Desta forma, mantive o *core* matemático robusto em C (atendendo ao requisito acadêmico), mas o envolvi em uma camada de WebAssembly e HTML5 para criar uma experiência de usuário real.
+
 ## ✨ Funcionalidades
 
 ### 📊 25 Operações Científicas Disponíveis:
